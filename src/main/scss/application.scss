@@ -1,0 +1,103 @@
+
+/*
+ * Custom application specific styles.
+ */
+
+body {
+  background: #fafafa;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+@media only screen and (min-width : 1009px) {
+  .loginContent {
+    margin-right: 230px;
+  }
+}
+
+.development {
+  position: absolute;
+  width: 149px;
+  height: 149px;
+  top: 0;
+  left: 0;
+  border: 0;
+  z-index: 10000;
+  background-image: url("../images/development_ribbon.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.hero-unit {
+  margin: 50px auto 0 auto;
+  width: 300px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 60px;
+}
+
+.hero-unit h1 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.error {
+  color: white;
+  background-color: red;
+}
+
+/* make sure browsers use the pointer cursor for anchors, even with no href */
+a:hover {
+  cursor: pointer;
+}
+
+
+/* start Password strength bar style */
+ul#strength {
+  display:inline;
+  list-style:none;
+  margin:0;
+  margin-left:15px;
+  padding:0;
+  vertical-align:2px;
+}
+
+.point:last {
+  margin:0 !important;
+}
+.point {
+  background:#DDD;
+  border-radius:2px;
+  display:inline-block;
+  height:5px;
+  margin-right:1px;
+  width:20px;
+}
+/* end Password strength bar style */
+
+/* loading-bar style overrides */
+#loading-bar .bar {
+  background: #dd2e21;
+  height: 3px;
+}
+
+/* Fancy blur effect */
+#loading-bar .peg {
+  -moz-box-shadow: #dddb1e 1px 0 6px 1px;
+  -ms-box-shadow: #dddb1e 1px 0 6px 1px;
+  -webkit-box-shadow: #dddb1e 1px 0 6px 1px;
+  box-shadow: #dddb1e 1px 0 6px 1px;
+}
+
+
+#loading-bar-spinner .spinner-icon {
+  border-top-color:  #dd2e21;
+  border-left-color: #dd2e21;
+  width: 20px;
+  height: 20px;
+}
+/* end of loading-bar style overrides */

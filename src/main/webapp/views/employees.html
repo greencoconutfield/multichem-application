@@ -1,0 +1,102 @@
+<div>
+    <button class="btn btn-primary btn-sm" ng-click="addNew()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Employee
+    </button>
+    <div id="saveEmployeeModal" ng-show="showEmployeeEdit" aria-labelledby="myEmployeeLabel"
+         aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+
+                <div class="modal-header" style="overflow: auto;">
+                    <h4 class="modal-title" id="myEmployeeLabel">Create or edit a Employee</h4>
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="form-group col-md-3">
+                        <label>Designation</label>
+                        <input type="text" class="form-control" name="designation"
+                               ng-model="employee.designation" ng-minlength=1 ng-maxlength=50 required>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Employment Status</label>
+                        <select  class="form-control" ng-model="employee.employeeStatus" ng-options="status.status as status.status for status in employeeStatusList"></select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Employee Login</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="employeeLogin"
+                                   ng-model="employee.employeeLogin" ng-minlength=1 ng-maxlength=50>
+                            <span class="input-group-addon colorRed"
+                                  ng-show="!employeeLoginVerified" title="Click to verify login (yet to implement..)">
+                                <i class="glyphicon glyphicon-thumbs-down" ng-click="verifyEmployeeLogin()"></i>
+                            </span>
+                            <span class="input-group-addon colorGreen"
+                                  ng-show="employeeLoginVerified" title="Login verified">
+                                <i class="glyphicon glyphicon-thumbs-up"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <contact-widget contact="employee.contact" />
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Employment Start Date</label>
+                        <input type="date" class="form-control" name="employmentStartDate"
+                               ng-model="employee.employmentStartDate">
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>EmploymentEndDate</label>
+                        <input type="date" class="form-control" name="employmentEndDate"
+                               ng-model="employee.employmentStartDate" >
+                    </div>
+                </div>
+                <div class="modal-footer" style="overflow: auto;">
+                    <button type="button" class="btn-sm btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="employee in employees">
+                <td>{{employee.id}}</td>
+                <td>{{employee.contact.firstName}}</td>
+                <td>{{employee.designation}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(employee.id)"
+                            class="btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(employee.id)"
+                            class="btn-sm btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

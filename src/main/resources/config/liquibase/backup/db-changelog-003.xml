@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="200" author="kamesh" runAlways="false">
+
+        <createTable tableName="PRODUCT_PRICE_HISTORY">
+            <column name="product_price_history_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pricing_type_id" type="bigint"/>
+            <column name="currency_id" type="bigint"/>
+            <column name="product_id" type="bigint"/>
+            <column name="customer_id" type="bigint"/>
+            <column name="value" type="double"/>
+            <column name="expired_date" type="date"/>
+            <column name="last_update_date" type="timestamp" defaultValueDate="${now}"/>
+            <column name="is_current_used" type="boolean"/>
+        </createTable>
+
+
+        <addForeignKeyConstraint baseColumnNames="pricing_type_id"
+                                 baseTableName="PRODUCT_PRICE_HISTORY"
+                                 constraintName="FK_Product_Price_History_Pricing_type"
+                                 referencedColumnNames="pricing_type_id"
+                                 referencedTableName="PRICING_TYPE"/>
+
+        <addForeignKeyConstraint baseColumnNames="currency_id"
+                                 baseTableName="PRODUCT_PRICE_HISTORY"
+                                 constraintName="FK__Product_Price_History_Currency_currencyId"
+                                 referencedColumnNames="currency_id"
+                                 referencedTableName="CURRENCY"/>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="200" author="kamesh" runAlways="false">
+
+        <createTable tableName="EMPLOYEE_DETAIL">
+            <column name="employee_detail_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="full_name" type="varchar(50)"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="phone" type="varchar(50)"/>
+            <column name="status" type="varchar(50)"/>
+            <column name="join_date" type="date"/>
+            <column name="leave_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="VISIT_REPORT">
+            <column name="visit_report_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_id" type="bigint"/>
+            <column name="contact_person" type="varchar(50)"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="phone" type="varchar(50)"/>
+            <column name="status" type="varchar(50)"/>
+            <column name="date" type="date"/>
+            <column name="employee_id" type="bigint"/>
+        </createTable>
+
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="VISIT_REPORT"
+                                 constraintName="FK_VisitReport_CustomerId"
+                                 referencedColumnNames="customer_id"
+                                 referencedTableName="CUSTOMER"/>
+
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="VISIT_REPORT"
+                                 constraintName="FK_VisitReport_EmployeeId"
+                                 referencedColumnNames="employee_detail_id"
+                                 referencedTableName="EMPLOYEE_DETAIL"/>
+
+        <createTable tableName="VISIT_REPORT_PRODUCT_ITEM">
+            <column name="visit_report_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visit_report_product_item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="visit_report_id, visit_report_product_item_id" tableName="VISIT_REPORT_PRODUCT_ITEM"/>
+
+        <createTable tableName="VISIT_REPORT_PRODUCT_ITEM_DETAIL">
+            <column name="visit_report_product_item_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint"/>
+            <column name="pricing_type_id" type="bigint"/>
+            <column name="package_quantity" type="double"/>
+            <column name="unit_price" type="double"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="visit_report_product_item_id"
+                                 baseTableName="VISIT_REPORT_PRODUCT_ITEM"
+                                 constraintName="FK_Visit_Report_Product_Item_Detail_VisitReportProductItemId"
+                                 referencedColumnNames="visit_report_product_item_id"
+                                 referencedTableName="VISIT_REPORT_PRODUCT_ITEM_DETAIL"/>
+
+        <addForeignKeyConstraint baseColumnNames="visit_report_id"
+                                 baseTableName="VISIT_REPORT_PRODUCT_ITEM"
+                                 constraintName="FK_Visit_Report_Product_Item_VisitReportProductItemId"
+                                 referencedColumnNames="visit_report_id"
+                                 referencedTableName="VISIT_REPORT"/>
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="VISIT_REPORT_PRODUCT_ITEM_DETAIL"
+                                 constraintName="FK_Visit_Report_Product_Item_ProductId"
+                                 referencedColumnNames="product_id"
+                                 referencedTableName="PRODUCT"/>
+        <addForeignKeyConstraint baseColumnNames="pricing_type_id"
+                                 baseTableName="VISIT_REPORT_PRODUCT_ITEM_DETAIL"
+                                 constraintName="FK_Visit_Report_Product_Item_PricingTypeId"
+                                 referencedColumnNames="pricing_type_id"
+                                 referencedTableName="PRICING_TYPE"/>
+
+        <createTable tableName="VISIT_REPORT_PURPOSE_ITEM">
+            <column name="visit_report_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visit_report_purpose_item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="visit_report_id, visit_report_purpose_item_id" tableName="VISIT_REPORT_PURPOSE_ITEM"/>
+
+        <createTable tableName="VISIT_REPORT_PURPOSE_ITEM_DETAIL">
+            <column name="visit_report_purpose_item_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="detail" type="text"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="visit_report_purpose_item_id"
+                                 baseTableName="VISIT_REPORT_PURPOSE_ITEM"
+                                 constraintName="FK_Visit_Report_Purpose_Item_Detail_VisitReportPurposeItemId"
+                                 referencedColumnNames="visit_report_purpose_item_id"
+                                 referencedTableName="VISIT_REPORT_PURPOSE_ITEM_DETAIL"/>
+
+        <addForeignKeyConstraint baseColumnNames="visit_report_id"
+                                 baseTableName="VISIT_REPORT_PURPOSE_ITEM"
+                                 constraintName="FK_Visit_Report_Action_Item_VisitReportPurposeItemId"
+                                 referencedColumnNames="visit_report_id"
+                                 referencedTableName="VISIT_REPORT"/>
+
+        <createTable tableName="VISIT_REPORT_ACTION_ITEM">
+            <column name="visit_report_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visit_report_action_item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="visit_report_id, visit_report_action_item_id" tableName="VISIT_REPORT_ACTION_ITEM"/>
+
+        <createTable tableName="VISIT_REPORT_ACTION_ITEM_DETAIL">
+            <column name="visit_report_action_item_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="employee_id" type="bigint"/>
+            <column name="detail" type="text"/>
+            <column name="status" type="varchar(50)"/>
+            <column name="dead_line" type="date"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="visit_report_action_item_id"
+                                 baseTableName="VISIT_REPORT_ACTION_ITEM"
+                                 constraintName="FK_Visit_Report_Action_Item_Detail_VisitReportActionItemId"
+                                 referencedColumnNames="visit_report_action_item_id"
+                                 referencedTableName="VISIT_REPORT_ACTION_ITEM_DETAIL"/>
+
+        <addForeignKeyConstraint baseColumnNames="visit_report_id"
+                                 baseTableName="VISIT_REPORT_ACTION_ITEM"
+                                 constraintName="FK_Visit_Report_Action_Item_VisitReportActionItemId"
+                                 referencedColumnNames="visit_report_id"
+                                 referencedTableName="VISIT_REPORT"/>
+
+    </changeSet>
+
+</databaseChangeLog>

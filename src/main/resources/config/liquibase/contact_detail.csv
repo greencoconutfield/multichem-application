@@ -1,0 +1,4 @@
+contact_detail_id;email;mobile;home_phone;fax;phone_other;contact_person_id;address_id
+9;NULL;NULL;'66 2 440 1262-6';NULL;NULL;9;9
+65537;NULL;NULL;NULL;NULL;NULL;65537;65537
+32768;'victor@c1.com.vn';NULL;'12345678';'12345678';NULL;32768;32768

@@ -1,0 +1,65 @@
+server:
+    port: 8080
+
+spring:
+    profiles: prod
+    
+    datasource:
+        dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+        url: jdbc:mysql://localhost:3306/yukam
+        databaseName: 
+        serverName: 
+        username: root
+        password: 123456
+
+                 dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+                 databaseName: hexachem-db
+                 portNumber: 5432
+                 serverName: localhost
+                 username: postgres
+                 password: 12345678x@X
+
+    datasource:
+             datasource:
+                  dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+                  databaseName: hexa
+                  portNumber: 5432
+                  serverName: postgres162370-env-3256570.jelastic.servint.net
+                  username: webadmin
+                  password: 0uVU0yRT2o
+
+    jpa:
+        database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+        database: MYSQL
+        openInView: false
+        show_sql: false
+        generate-ddl: false
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+        properties:
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+            
+
+    mail:
+        baseUrl: http://localhost:8080
+
+    thymeleaf:
+        mode: XHTML
+        cache: true
+
+
+metrics:
+    jmx.enabled: true
+    graphite:
+        enabled: false
+        host: localhost
+        port: 2003
+
+cache:
+    timeToLiveSeconds: 3600
+    ehcache:
+        maxBytesLocalHeap: 256M

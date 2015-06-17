@@ -1,0 +1,148 @@
+<div>
+    <button class="btn btn-primary btn-sm" ng-click="addNew()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new customer
+    </button>
+    <div id="saveCustomerModal" ng-show="showCustomerEdit" aria-labelledby="myCustomerLabel" aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+
+                <div class="modal-header" style="overflow: auto;">
+                    <h4 class="modal-title" id="myCustomerLabel">Create or edit a customer</h4>
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="col-md-6">
+                        <div class="form-group col-md-4">
+                            <label>Customer Id</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.id" readonly>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                        <label>Customer Name</label>
+                        <input type="text" class="form-control" name="test"
+                               ng-model="customer.customerName" ng-minlength=1 ng-maxlength=50 >
+                        </div>
+                        <div class="form-group col-md-12">
+                        <label>Industry sector</label>
+                            <select class="form-control" ng-model="customer.industrySector.id"
+                                    ng-options="industrySector.id as industrySector.name for industrySector in industrySectors" ></select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.contactDetail.homePhone" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Fax</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.contactDetail.fax" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="id" ng-model="customer.contactDetail.email" >
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Address Detail</label>
+                            <textarea type="text"
+                                      class="form-control"
+                                      ng-maxlength="1000"
+                                      name="test"
+                                      ng-model="customer.contactDetail.address.additionalDetails">
+                            </textarea>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>State</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.contactDetail.address.state" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Country</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.contactDetail.address.country" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Post Code</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.contactDetail.address.postCode" >
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="modal-header" style="overflow: auto;">
+                            <h4 class="modal-title" id="myCustomerContactPersonLabel">Contact person details</h4>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Title</label>
+                            <select class="form-control" ng-model="customer.contactDetail.contactPerson.title">
+                                <option value="Mr" selected="selected">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Madam">Madam</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.contactDetail.contactPerson.fullName" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Mobile</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.contactDetail.contactPerson.mobile" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Home Phone</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.contactDetail.contactPerson.homePhone" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="id" ng-model="customer.contactDetail.contactPerson.email" >
+                        </div>
+
+                    </div>
+
+                    <!--<contact-widget contact="customer.contact" />-->
+
+                </div>
+                <div class="modal-footer" style="overflow: auto;">
+                    <button type="button" class="btn-sm btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer Name</th>
+                <th>Contact Name</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="customer in customers">
+                <td>{{customer.id}}</td>
+                <td>{{customer.customerName}}</td>
+                <!--<td>{{customer.contact.firstName + ' ' +-->
+                <!--(customer.contact.middleName?customer.contact.middleName:'') + ' ' +-->
+                <!--customer.contact.lastName}}</td>-->
+                <td>{{customer.contactDetail.contactPerson.fullName}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(customer.id)"
+                            class="btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(customer.id)"
+                            class="btn-sm btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

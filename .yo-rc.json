@@ -1,0 +1,18 @@
+{
+  "generator-jhipster": {
+    "baseName": "yukam",
+    "packageName": "com.yukam.mypam",
+    "packageFolder": "com/yukam/mypam",
+    "authenticationType": "cookie",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "useCompass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "7"
+  }
+}

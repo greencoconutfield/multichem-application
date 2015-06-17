@@ -1,0 +1,145 @@
+<div>
+    <button class="btn btn-primary btn-sm" ng-click="addNew()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Shipment
+    </button>
+    <div id="saveShipmentModal" ng-show="showShipmentEdit" aria-labelledby="myShipmentLabel" aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+
+                <div class="modal-header" style="overflow: auto;">
+                    <h4 class="modal-title" id="myShipmentLabel">Create or edit a Shipment</h4>
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="col-md-7">
+                        <div class="col-md-6">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="shipment.id" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Status</label>
+                            <input type="text"
+                                   ng-model="shipment.status"
+                                   typeahead="status for status in statuses | filter:$viewValue | limitTo:10"
+                                   class="form-control" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Description</label>
+                            <textarea type="date" class="form-control" name="description"
+                                   ng-maxlength="500"
+                                   ng-model="shipment.description"></textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Dispatched Date</label>
+                            <input type="date" class="form-control" name="status"
+                                   ng-model="shipment.dispatchedDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Dispatched From</label>
+                            <input type="text" class="form-control" name="status"
+                                   ng-model="shipment.dispatchedFrom">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Arrival Date</label>
+                            <input type="date" class="form-control" name="status"
+                                   ng-model="shipment.arrivalDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Arrival Location</label>
+                            <input type="text" class="form-control" name="status"
+                                   ng-model="shipment.arrivalLocation">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group col-md-11">
+                            <label>Supplier</label>
+                            <select  class="form-control" ng-model="shipment.supplier.id" ng-options="supplier.id as supplier.supplierName for supplier in suppliers"></select>
+                        </div>
+
+                        <div class="form-group col-md-11">
+                            <label>Add Customer</label>
+                            <div class="input-group">
+                                <input type="text"
+                                       ng-model="selectedCustomer"
+                                       typeahead="customer as customer.customerName for customer in customers | filter:$viewValue | limitTo:10"
+                                       class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-plus" ng-click="addCustomer()"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-11">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr ng-repeat="customer in shipment.customers">
+                                            <td>{{customer.customerName}}</td>
+                                            <td>
+                                                <span class="glyphicon glyphicon-remove" ng-click="removeCustomer(customer)"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--<angucomplete id="supplierSelect"-->
+                                      <!--placeholder="Search Supplier"-->
+                                      <!--pause="100"-->
+                                      <!--selectedobject="selectedSupplier"-->
+                                      <!--localdata="suppliers"-->
+                                      <!--searchfields="name"-->
+                                      <!--titlefield="name"-->
+                                      <!--minlength="1"-->
+                                      <!--inputclass="form-control form-control-small"/>-->
+
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="overflow: auto;">
+                    <button type="button" class="btn-sm btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Status</th>
+                    <th>Supplier</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="shipment in shipments">
+                    <td>{{shipment.id}}</td>
+                    <td>{{shipment.status}}</td>
+                    <td>{{shipment.supplier.supplierName}}</td>
+                    <td>
+                        <button type="submit"
+                                ng-click="update(shipment.id)"
+                                class="btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(shipment.id)"
+                                class="btn-sm btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

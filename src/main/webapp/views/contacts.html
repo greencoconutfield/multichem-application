@@ -1,0 +1,59 @@
+<div>
+    <button class="btn btn-primary btn-sm" ng-click="addNew()">
+        <span class="glyphicon glyphicon-flash"></span> New Contact
+    </button>
+    <div id="saveContactModal" ng-show="showContactEdit" aria-labelledby="myContactLabel" aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myContactLabel">Create or edit a Contact</h4>
+                </div>
+                <div class="row">
+                    <div class="modal-body">
+                        <contact-widget contact="contact" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contact in contacts">
+                    <td>{{contact.id}}</td>
+                    <td>{{contact.firstName}}</td>
+                    <td>
+                        <button type="submit"
+                                ng-click="update(contact.id)"
+                                class="btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(contact.id)"
+                                class="btn-sm btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

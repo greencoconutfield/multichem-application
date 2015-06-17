@@ -1,0 +1,96 @@
+<div>
+    <div id="saveDefaultTaxDetailModal" ng-show="showDefaultTaxDetailEdit"  aria-labelledby="mDefaultTaxDetailLabel" aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+
+                <div class="modal-header" style="overflow: auto;">
+                    <h4 class="modal-title" id="myEmployeeLabel">View or edit a default tax detail</h4>
+                </div>
+
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="form-group col-md-4">
+                        <div class="form-group col-md-12">
+                            <label>Id</label>
+                            <input type="text" class="form-control" name="id" ng-model="defaultTaxDetail.id" readonly>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Region</label>
+                            <input type="text" class="form-control" name="id" ng-model="defaultTaxDetail.region">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <div class="form-group col-md-6">
+                            <label>Insurance </label>
+                            <input type="number" class="form-control" ng-model="defaultTaxDetail.insurance" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Sea freight  </label>
+                            <input type="number" class="form-control" ng-model="defaultTaxDetail.freightCost" >
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <label>Tt fee</label>
+                            <input type="number" class="form-control"  ng-model="defaultTaxDetail.ttFee">
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <label>Custom clearance</label>
+                            <input type="number" min="0" class="form-control" ng-model="defaultTaxDetail.localClearance" >
+                        </div>
+
+                        <div class="form-group col-md-6" >
+                            <label>Admin charge</label>
+                            <input type="number" min="0" class="form-control" name="test" ng-model="defaultTaxDetail.adminCharge" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Supplier inland </label>
+                            <input type="number" min="0" class="form-control" ng-model="defaultTaxDetail.supplierInlandCost"  >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Import tax (%)</label>
+                            <input type="number" min="0" max="20"
+                                   class="form-control"
+                                   ng-model="defaultTaxDetail.importTax" required >
+                        </div>
+                    </div>
+
+
+                    <!--<contact-widget contact="supplier.contact" />-->
+
+                </div>
+                <div class="modal-footer" style="overflow: auto;">
+                    <button type="button" class="btn-sm btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Region</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in defaultTaxDetails">
+                <td>{{item.id}}</td>
+                <td>{{item.region}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(item.id)"
+                            class="btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

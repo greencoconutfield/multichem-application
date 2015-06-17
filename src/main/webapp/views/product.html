@@ -1,0 +1,289 @@
+<div xmlns="http://www.w3.org/1999/html">
+    <div class="form-group col-md-12">
+    <button class="btn btn-primary btn-sm" ng-click="addNew()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new product
+    </button>
+    <button class="btn btn-primary btn-sm" ng-click="listProducts()">
+        <span class="glyphicon glyphicon-flash"></span> List all products
+    </button>
+    </div>
+    <div id="saveProductModal" ng-show="showProductEdit" aria-labelledby="myProductLabel" aria-hidden="true">
+        <div class="row">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myProductLabel">Create or edit a Product</h4>
+            </div>
+
+            <form name="form" role="form" novalidate class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength" ng-submit="create()">
+                <div class="form-group col-md-5">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myProductDetailLabel">Product detail</h4>
+                    </div>
+                    <div class="form-group col-md-6">
+                              <label>ID</label>
+                              <input type="text" class="form-control" name="id" ng-model="product.id" readonly="readonly">
+                        </div>
+                    <div class="form-group col-md-6">
+                                <label>Product Name</label>
+                                <input type="text" class="form-control" name="test" ng-model="product.productName" ng-minlength="1" ng-maxlength="50" required>
+                            </div>
+                    <div class="form-group col-md-6">
+                        <label>Industry/Sub Sector</label>
+                        <select class="form-control"
+                                ng-selected="product.subIndustrySector = subIndustrySectors[0]"
+                                ng-model="product.subIndustrySector.id"
+                                ng-options="subIndustrySector.id as subIndustrySector.description for subIndustrySector in subIndustrySectors" required>
+                            <option value="">-- Select a industry sector --</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Supplier</label>
+                        <select class="form-control"
+                                ng-selected="productSupplier = suppliers[0]"
+                                ng-model="product.supplier.id"
+                                ng-options="supplier.id as supplier.supplierName for supplier in suppliers" required>
+                            <option value="">-- Select a supplier --</option>
+                        </select>
+                    </div>
+                    <!--For tax and fee-->
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myProductFeeLabel">Tax & Fee</h4>
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label>Region</label>
+                        <select class="form-control"
+                                ng-model="product.taxDetail.defaultTaxDetail.id"
+                                ng-options="defaultTaxDetail.id as defaultTaxDetail.region for defaultTaxDetail in defaultTaxDetails"
+                                ng-click="reloadDefaultTaxDetail(product.taxDetail.defaultTaxDetail.id)" required>
+                            <option value="">-- Select a region --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Supplier inland (%)</label>
+                        <input type="number" min="0" class="form-control" ng-model="product.taxDetail.supplierInlandCost" ng-disabled="isFOB" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Sea freight (%)</label>
+                        <input type="number" class="form-control" ng-model="product.taxDetail.freightCost" ng-disabled="isCIF" >
+                    </div>
+                   
+                    <div class="form-group col-md-6" >
+                        <label>Insurance (%)</label>
+                        <input type="number" min="0" class="form-control" ng-model="product.taxDetail.insurance" ng-disabled="isCIF" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Import tax (%)</label>
+                        <input type="number" min="0" max="20"
+                               class="form-control"
+                               ng-model="product.taxDetail.importTax" required >
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label>Local clearance (%)</label>
+                        <input type="number" min="0" class="form-control" ng-model="product.taxDetail.localClearance" >
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label>Admin charge (%)</label>
+                        <input type="number" min="0" class="form-control" name="test" ng-model="product.taxDetail.adminCharge">
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label>Tt fee</label>
+                        <input type="number" class="form-control"  ng-model="product.taxDetail.ttFee">
+                    </div>
+
+                </div>
+                <div class="form-group col-md-7">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="mySupplierListLabel">Package - Price</h4>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Unit</label>
+                        <select  class="form-control"
+                                 ng-model="product.unit.id"
+                                 ng-options="unit.id as unit.name for unit in units" required>
+                            <option value="">-- Select an unit --</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Package type</label>
+                        <select  class="form-control"
+                                 ng-model="product.packageType.id"
+                                 ng-options="packageType.id as packageType.name for packageType in packageTypes" required>
+                            <option value="">-- Select a package type --</option>
+                         </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Package size</label>
+                        <input type="text" class="form-control" name="test" ng-model="product.packageSize" required>
+                    </div>
+                    <div class="form-group col-md-4" >
+                        <label>Price type</label>
+                        <select class="form-control"
+                                ng-model="product.price.pricingType.id"
+                                ng-options="pricingType.id as pricingType.name for pricingType in pricingTypes" required capitalize
+                                ng-click="priceTypeChange(product.price.pricingType.id)">
+                            <option value="">-- Select a price type --</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Expired date</label>
+                        <input type="date" class="form-control"
+                               ng-model="product.price.expiredDate" required >
+                    </div>
+                    <div class="form-group col-md-4 ">
+                        <label>Minimum order</label>
+                        <input type="text" class="form-control" name="test" ng-model="product.minimumOrder">
+                    </div>
+                    <div class="form-group col-md-4 ">
+                        <label>Lead time (days)</label>
+                        <input type="text" class="form-control" name="test" ng-model="product.leadTime">
+                    </div>
+                    <div class="form-group col-md-8" >
+                        <label>Price history</label>
+                        <select class="form-control"
+                                ng-selected="productPriceHistory = currentProductPriceHistories[{{currentProductPriceHistories.length}}]"
+                                ng-model="productPriceHistory.id"
+                                ng-options="productPriceHistory.id as productPriceHistory.value + productPriceHistory.currency.name + ' - ' + productPriceHistory.pricingType.name + ' - ' +
+                                 (productPriceHistory.lastUpdate | date:'yyyy-MM-dd') for productPriceHistory in currentProductPriceHistories " readonly> </select>
+                    </div>
+                    <div class="form-group col-md-4" >
+                        <label>Buying price</label>
+                        <input type="number" min="0"  class="form-control" name="test" ng-model="product.price.value" >
+                    </div>
+                    <div class="form-group col-md-4" >
+                        <label>Currency</label>
+                        <select class="form-control"
+                                ng-selected="product.price.currency.id = currencies[0].id"
+                                ng-model="product.price.currency.id"
+                                ng-options="currency.id as currency.name for currency in currencies" ></select>
+                    </div>
+                    <div class="form-group col-md-8" >
+                        <div class="table-responsive">
+                            <table   items="products" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width:20">Final price</th>
+                                    <th style="width:20%"><100</th>
+                                    <th style="width:20%">101--400</th>
+                                    <th style="width:20%">401--800</th>
+                                    <th style="width:20%">>800</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td></td>
+                                    <td>{{product.price.value * (1 + product.taxDetail.localClearance/100) * (1 + product.taxDetail.freightCost/100) *
+                                        (1 + product.taxDetail.supplierInlandCost/100) * (1 + product.taxDetail.insurance/100) * (1 + product.taxDetail.importTax/100) *
+                                        (1 +product.taxDetail.adminCharge/100) * (1 + product.taxDetail.ttFee/100) * 1.6 | number:3 }}{{product.price.currency.name}}</td>
+                                    <td>{{product.price.value * (1 + product.taxDetail.localClearance/100) * (1 + product.taxDetail.freightCost/100) *
+                                        (1 + product.taxDetail.supplierInlandCost/100) * (1 + product.taxDetail.insurance/100) * (1 + product.taxDetail.importTax/100) *
+                                        (1 +product.taxDetail.adminCharge/100) * (1 + product.taxDetail.ttFee/100) * 1.5 | number:3 }}{{product.price.currency.name}}</td>
+                                    <td>{{product.price.value * (1 + product.taxDetail.localClearance/100) * (1 + product.taxDetail.freightCost/100) *
+                                        (1 + product.taxDetail.supplierInlandCost/100) * (1 + product.taxDetail.insurance/100) * (1 + product.taxDetail.importTax/100) *
+                                        (1 +product.taxDetail.adminCharge/100) * (1 + product.taxDetail.ttFee/100) * 1.4 | number:3 }}{{product.price.currency.name}}</td>
+                                    <td>{{product.price.value * (1 + product.taxDetail.localClearance/100) * (1 + product.taxDetail.freightCost/100) *
+                                        (1 + product.taxDetail.supplierInlandCost/100) * (1 + product.taxDetail.insurance/100) * (1 + product.taxDetail.importTax/100) *
+                                        (1 +product.taxDetail.adminCharge/100) * (1 + product.taxDetail.ttFee/100) * 1.3 | number:3 }}{{product.price.currency.name}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+               </div>
+            </form>
+        </div>
+        <div class="modal-footer col-md-8">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-show="showProductEdit" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                </button>
+            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" ng-show="showProductEdit" ng-click="create()">
+                <span class="glyphicon glyphicon-save"></span> Save
+            </button>
+         </div>
+    </div>
+
+
+
+    <div id ="listProductModal" ng-show="!showProductEdit" class="table-responsive">
+        <div class="form-group col-md-6" >
+            Search: <input ng-model="searchText">
+        </div>
+        <table   items="products" class="table table-striped">
+            <thead>
+                <tr>
+                <th style="width:4%">ID</th>
+                <th style="width:14%">Product Name</th>
+                <th style="width:10%">Supplier</th>
+                <th style="width:10%">Industry Sector</th>
+                <th style="width:10%">Package</th>
+                <th style="width:10%">Buying Price</th>
+                <th style="width:10%">Expired Date</th>
+                <th style="width:10%">Last Update</th>
+                <th style="width:5%">Status</th>
+                <th style="width:17%"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products | filter:searchText | orderBy:'id'">
+                <td>{{product.id}}</td>
+                <td>{{product.productName}}</td>
+                <td>{{product.supplier.supplierName}}</td>
+                <td>{{product.subIndustrySector.description}}</td>
+                <td>{{product.packageSize}} {{product.unit.name}}/{{product.packageType.name}}</td>
+                <td> <!-- editable username (text with validation) -->
+                    <span editable-text="product.price.value" e-name="value" e-form="rowform" e-required>
+                      {{ product.price.value  || 'empty' }} {{product.price.currency.name}}
+                    </span>
+                    <!--{{product.price.value}} {{product.price.currency.name}}-->
+                </td>
+                <td>
+                     <span editable-date="product.price.expiredDate" e-name="expiredDate" e-form="rowform" e-required>
+                      {{(product.price.expiredDate | date:"dd/MM/yyyy") || 'empty'}}
+                    </span>
+                    <!--{{product.price.expiredDate | date:'yyyy-MM-dd'}}-->
+                </td>
+                <td>
+                    <!--{{product.price.value <21 ? "valid" : "expired"}}-->
+                    {{product.price.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}
+                </td>
+                    <td>
+                        <span class="bg-red">
+                        {{getDate(product.price.expiredDate) < today ? 'Expired' :''}}
+                            </span>
+                    </td>
+
+                <td>
+                    <form editable-form name="rowform" ng-show="rowform.$visible" onbeforesave="saveProduct(product)"  class="form-buttons form-inline" shown="inserted == product.price">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                            Save
+                        </button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                            Cancel
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                        <button type="submit" ng-click="update(product.id)" class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="submit" ng-click="delete(product.id)" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                        </button>
+                        <button type="button" ng-click="rowform.$show()" class="btn">
+                            <span class="glyphicon glyphicon-pencil">Price</span>
+                        </button>
+                    </div>
+
+                    <!--<button type="submit" ng-click="update(product.id)" class="btn">-->
+                        <!--<span class="glyphicon glyphicon-pencil"></span> Edit-->
+                    <!--</button>-->
+                    <!--<button type="submit" ng-click="delete(product.id)" class="btn btn-danger">-->
+                        <!--<span class="glyphicon glyphicon-remove-circle"></span> Delete-->
+                    <!--</button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <pagination total-items="totalItems()" ng-model="currentPage" items-per-page="itemPerPage" ng-change="switchPage()" ></pagination>
+    </div>
+</div>

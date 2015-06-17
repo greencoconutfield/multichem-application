@@ -1,0 +1,311 @@
+<div>
+    <button class="btn btn-primary btn-sm" ng-click="addNew()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new visit report
+    </button>
+    <button class="btn btn-primary btn-sm" ng-click="listAllVisitReports()">
+        <span class="glyphicon glyphicon-flash"></span> List all visit reports
+    </button>
+    <button class="btn btn-primary btn-sm" ng-click="showMarketSurveyDetail()">
+        <span class="glyphicon glyphicon-flash"></span> Market survey
+    </button>
+    <div id="saveVisitReportModal" ng-show="showVisitReportEdit" aria-labelledby="myVisitReportLabel" aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+
+                <div class="modal-header" style="overflow: auto;">
+                    <h4 class="modal-title" id="myCustomerLabel">Create or edit a visit report</h4>
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="col-md-9">
+                        <div class="form-group col-md-3">
+                            <label>Id</label>
+                            <input type="text" class="form-control" name="id" ng-model="customer.id" readonly>
+                        </div>
+
+                        <div class="form-group col-md-5">
+                            <label>Customer name</label>
+                            <select class="form-control" ng-model="visitReport.customer.id"
+                                    ng-options="customer.id as customer.customerName for customer in customers">
+                                    <option value="">-- Select a customer --</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Date</label>
+                            <input type="date" class="form-control" name="id" ng-model="visitReport.date" >
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Contact persons - phone # - email address</label>
+                            <textarea type="text" class="form-control" name="description"
+                                      ng-maxlength="500" rows="4"
+                                      ng-model="visitReport.contactPerson"></textarea>
+                        </div>
+                        </div>
+                        <div class="form-group col-md-3">
+
+                            <div class="form-group col-md-12">
+                                <label>Status</label>
+                                <select class="form-control" ng-model="visitReport.status"
+                                        ng-options="status as status for status in statuses" required="">
+                                        <option value="">-- Select a status --</option>
+                                 </select>
+
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Conducted by</label>
+                                <select class="form-control" ng-model="visitReport.employee.id"
+                                        ng-options="employee.id as employee.fullName for employee in employees">
+                                        <option value="">-- Select a employee --</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                     </div>
+
+            </form>
+        </div>
+        <div>
+            <div class="modal-header" style="overflow: auto;">
+                <h4 class="modal-title" id="myPurposesLabel">Summary of key topics</h4>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>Information about customer</label>
+                <textarea type="date" class="form-control" name="description"
+                          ng-maxlength="500" rows="4"
+                          ng-model="visitReport.customerOverview"></textarea>
+            </div>
+            <div class="form-group col-md-12">
+                <label>Information of product currently using</label>
+                <table class="table table-striped">
+                    <tr style="font-weight: bold">
+                        <td style="width:20%">Product-Supplier</td>
+                        <td style="width:15%">Industry sector</td>
+                        <td style="width:15%">Product sector</td>
+                        <td style="width:7%">Quantity</td>
+                        <td style="width:7%">Unit</td>
+                        <td style="width:7%">Price</td>
+                        <td style="width:29%">Notes</td>
+                        <td style="width:15%"> </td>
+                    </tr>
+                    <tr ng-repeat="visitReportProductItem in visitReport.visitReportProductItems">
+                        <td>
+                            <!-- editable username (text with validation) -->
+                            <!--<span editable-text="action.employee.fullName" e-name="fullName" e-form="rowform1" e-required>-->
+                        <span editable-select="visitReportProductItem.visitReportProduct" e-name="product" e-form="rowform2" e-ng-options="product as product.productName + '--' + product.supplier.supplierName for product in visitReportProducts">
+                          {{visitReportProductItem.visitReportProduct.productName}}--{{visitReportProductItem.visitReportProduct.supplier.supplierName}}
+                        </span>
+                        </td>
+                        <td>
+                            {{visitReportProductItem.visitReportProduct.subIndustrySector.description }}
+                        </td>
+                        <td>
+                            {{visitReportProductItem.visitReportProduct.productSector.name }}
+                        </td>
+                        <td>
+                            <!-- editable username (text with validation) -->
+                        <span editable-number="visitReportProductItem.quantity" e-name="quantity" e-form="rowform2" e-style="width:60px !important" e-required>
+                          {{visitReportProductItem.quantity | number  }}
+                        </span>
+                        </td>
+                        <td>
+                            <span editable-select="visitReportProductItem.unit" e-name="unit" e-form="rowform2" e-ng-options="unit as unit.name for unit in units">
+                          {{visitReportProductItem.unit.name }}
+                        </span>
+                        </td>
+                        <td>
+                            <!-- editable username (text with validation) -->
+                        <span editable-number="visitReportProductItem.unitPrice" e-name="unitPrice" e-form="rowform2" e-style="width:60px !important" e-required>
+                          {{visitReportProductItem.unitPrice |number:2  }}
+                        </span>
+                        </td>
+
+                        <td>
+                            <!-- editable username (text with validation) -->
+                        <span editable-textArea="visitReportProductItem.notes" e-name="notes" e-form="rowform2" e-style="width:350px !important" e-required>
+                          <pre>{{visitReportProductItem.notes || 'empty' }}</pre>
+                        </span>
+                        </td>
+
+                        <td style="white-space: nowrap">
+                            <!-- form -->
+                            <form editable-form name="rowform2" ng-show="rowform2.$visible" class="form-buttons form-inline" shown="insertedProduct == visitReportProductItem">
+                                <button type="submit" ng-disabled="rowform2.$waiting" class="btn btn-primary">
+                                    save
+                                </button>
+                                <button type="button" ng-disabled="rowform2.$waiting" ng-click="rowform2.$cancel()" class="btn btn-default">
+                                    cancel
+                                </button>
+                            </form>
+                            <div class="buttons" ng-show="!rowform2.$visible">
+                                <button class="btn btn-primary" ng-click="rowform2.$show()">edit</button>
+                                <button class="btn btn-danger" ng-click="removeProduct($index)">del</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <button class="btn btn-default" ng-click="addProduct()" >Add product</button>
+            </div>
+            <div class="form-group col-md-12">
+                <label>Problems facing (or new project)/suggestions</label>
+                <textarea type="date" class="form-control" name="description"
+                          ng-maxlength="500" rows="4"
+                          ng-model="visitReport.facingProblem"></textarea>
+            </div>
+        </div>
+
+        <div>
+            <div class="modal-header" style="overflow: auto;">
+                <h4 class="modal-title" id="myActionsLabel">Actions</h4>
+            </div>
+            <table class="table table-striped">
+                <tr style="font-weight: bold">
+                    <td style="width:35%">Detail</td>
+                    <td style="width:15%">Person in charge</td>
+                    <td style="width:15%">Status</td>
+                    <td style="width:20%">Dead-line</td>
+                    <td style="width:15%"> </td>
+                </tr>
+                <tr ng-repeat="action in visitReport.actions">
+                    <td>
+                        <span editable-text="action.detail" e-name="name" e-form="rowform1" e-style="width:250px" e-required>
+                          {{ action.detail || 'empty' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span editable-select="action.employee" e-name="employee" e-form="rowform1" e-ng-options="employee as employee.fullName for employee in employees">
+                          {{action.employee.fullName || 'empty' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span editable-select="action.status" e-name="status" e-form="rowform1" e-ng-options="status as status for status in actionStatuses">
+                          {{action.status }}
+                        </span>
+                    </td>
+                    <td>
+                         <span editable-date="action.deadLine" e-name="deadLine" e-form="rowform1" e-required>
+                            {{(action.deadLine | date:"dd/MM/yyyy") || 'empty'}}
+                        </span>
+                    </td>
+
+                    <td style="white-space: nowrap">
+                        <!-- form -->
+                        <form editable-form name="rowform1" ng-show="rowform1.$visible" class="form-buttons form-inline" shown="insertedAction == action">
+                            <button type="submit" ng-disabled="rowform1.$waiting" class="btn btn-primary">
+                                save
+                            </button>
+                            <button type="button" ng-disabled="rowform1.$waiting" ng-click="rowform1.$cancel()" class="btn btn-default">
+                                cancel
+                            </button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform1.$visible">
+                            <button class="btn btn-primary" ng-click="rowform1.$show()">edit</button>
+                            <button class="btn btn-danger" ng-click="removeAction($index)">del</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <button class="btn btn-default" ng-click="addAction()" >Add action</button>
+        </div>
+        <div class="modal-footer" style="overflow: auto;">
+            <button type="button" class="btn-sm btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+            </button>
+            <button type="button" ng-disabled="form.$invalid" class="btn-sm btn-primary" ng-click="create()">
+                <span class="glyphicon glyphicon-save"></span> Save
+            </button>
+        </div>
+    </div>
+
+    <div id ="listVisitReportModal" ng-show="showVisitReportList" class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer Name</th>
+                <th>Contact Name</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="visitReport in visitReports">
+                <td>{{visitReport.id}}</td>
+                <td>{{visitReport.customer.customerName}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(visitReport.id)"
+                            class="btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(visitReport.id)"
+                            ng-confirm-click="Would you like to delete this visit report?"
+                            class="btn-sm btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id ="listMarketSurveyModal" ng-show="showMarketSurvey" class="table-responsive">
+
+        <div class="form-group col-md-4">
+            <label>Industry sector</label>
+            <select class="form-control" ng-model="selectedIndustrySector"
+                    ng-options="industrySector as industrySector.description for industrySector in subIndustrySectors">
+                <option value="">-- Select a industry sector --</option>
+            </select>
+
+        </div>
+        <div class="form-group col-md-4">
+            <label>Product sector</label>
+            <select class="form-control" ng-model="selectedProductSector"
+                    ng-options="productSector as productSector.name for productSector in productSectors | filter:selectedIndustrySector.description">
+                <option value="">-- Select a product sector--</option>
+            </select>
+
+        </div>
+
+        <div class="form-group col-md-4">
+            <label>Supplier</label>
+            <select class="form-control" ng-model="selectedSupplier"
+                    ng-options="supplier as supplier.supplierName for supplier in suppliers">
+                <option value="">-- Select a supplier--</option>
+            </select>
+
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Industry sector</th>
+                <th>Product sector</th>
+                <th>Product -- Supplier</th>
+                <th>Quantity/Unit</th>
+                <th>Price</th>
+                <th>Customer</th>
+                <th>Notes</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="product in allProducts | filter:selectedIndustrySector.description | filter:selectedProductSector.name | filter:selectedSupplier.supplierName">
+                <td>{{product.product.visitReportProduct.productSector.subIndustrySector.description}}</td>
+                <td>{{product.product.visitReportProduct.productSector.name}}</td>
+                <td>{{product.product.visitReportProduct.productName}} -- {{product.product.visitReportProduct.supplier.supplierName}}</td>
+                <td>{{product.product.quantity}}/{{product.product.unit.name}}</td>
+                <td>{{product.product.unitPrice}}USD</td>
+                <td>{{product.customer}}</td>
+                <td><pre>{{product.product.notes}}</pre></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

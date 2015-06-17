@@ -1,0 +1,5 @@
+default_tax_detail_id;region;insurance;supplier_inland_cost;freight_cost;local_clearance;import_tax;admin_charge;tt_fee;extra_fee_1;extra_fee_2;extra_fee_3
+1;Europe;0;0;0;0;0;0;0;0;0;0
+2;US;0;0;0;0;0;0;0;0;0;0
+3;S.Asia;0;0;0;0;0;0;0;0;0;0
+4;Others;0;0;0;0;0;0;0;0;0;0

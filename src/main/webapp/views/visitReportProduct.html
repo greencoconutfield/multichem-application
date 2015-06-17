@@ -1,0 +1,132 @@
+<div>
+    <button class="btn btn-primary btn-sm" ng-click="addNew()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new product
+    </button>
+    <div id="saveProductModal" ng-show="showProductEdit" aria-labelledby="mProductLabel" aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+
+                <div class="modal-header" style="overflow: auto;">
+                    <h4 class="modal-title" id="myProductLabel">Create or edit a product</h4>
+                </div>
+
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="form-group col-md-8">
+                        <div class="form-group col-md-4">
+                                <label>Id</label>
+                                <input type="text" class="form-control" name="id" ng-model="visitReportProduct.id" readonly >
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label>Product name</label>
+                            <input type="text" class="form-control" name="id" ng-model="visitReportProduct.productName" >
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Description</label>
+                            <textarea type="text" class="form-control" name="description"
+                                      ng-maxlength="500" rows="4"
+                                      ng-model="visitReportProduct.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <!--<div class="form-group col-md-12">-->
+                            <!--<label>Industry/Sub Sector</label>-->
+                            <!--<select class="form-control"-->
+                                    <!--ng-selected="visitReportProduct.subIndustrySector = subIndustrySectors[0]"-->
+                                    <!--ng-model="visitReportProduct.subIndustrySector.id"-->
+                                    <!--ng-options="subIndustrySector.id as subIndustrySector.description for subIndustrySector in subIndustrySectors"-->
+                                    <!--required="">-->
+                            <!--</select>-->
+                    <!--</div>-->
+                        <div class="form-group col-md-12">
+                            <label>Product Sector</label>
+                            <select class="form-control"
+                                    ng-model="visitReportProduct.productSector"
+                                    ng-options="productSector as productSector.name for productSector in productSectors"
+                                    required="">
+                                <option value="">-- Select a product sector --</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Supplier</label>
+                            <select class="form-control"
+                                    ng-model="visitReportProduct.supplier"
+                                    ng-options="supplier as supplier.supplierName for supplier in suppliers"
+                                    required="">
+                                <option value="">-- Select a supplier --</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Type</label>
+                            <input type="text" class="form-control" name="id" ng-model="visitReportProduct.type" >
+                        </div>
+                     </div>
+
+
+                    <!--<div class="form-group col-md-5">-->
+                        <!--<div class="form-group col-md-4">-->
+                            <!--<label>Require linked?</label>-->
+                            <!--<input type="checkbox" ng-model="isLinked" ng-click="checkLinkToProduct()">-->
+                         <!--</div>-->
+                        <!--<div class="form-group col-md-8">-->
+                            <!--<label>Linked product</label>-->
+                             <!--<select class="form-control"-->
+                                    <!--ng-model="visitReportProduct.product.id"-->
+                                    <!--ng-options="product.id as product.productName for product in products"-->
+                                    <!--ng-disabled="!isLinked">-->
+                             <!--</select>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                </div>
+                <div class="modal-footer" style="overflow: auto;">
+                    <button type="button" class="btn-sm btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Industry sector</th>
+                <th>Product sector</th>
+                <th>Supplier</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="visitReportProduct in visitReportProducts">
+                <td>{{visitReportProduct.id}}</td>
+                <td>{{visitReportProduct.productName}}</td>
+                <td>{{visitReportProduct.subIndustrySector.description}}</td>
+                <td>{{visitReportProduct.productSector.name}}</td>
+                <td>{{visitReportProduct.supplier.supplierName}}</td>
+                <td>{{visitReportProduct.type}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(visitReportProduct.id)"
+                            class="btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(visitReportProduct.id)"
+                            class="btn-sm btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

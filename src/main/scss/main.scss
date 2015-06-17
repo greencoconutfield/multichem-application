@@ -1,0 +1,20 @@
+
+// Import bootstrap
+$icon-font-path: "../bower_components/bootstrap-sass/vendor/assets/fonts/bootstrap/";
+@import './bootstrap-sass/vendor/assets/stylesheets/bootstrap';
+
+// import font-awesome
+$fa-font-path: '../bower_components/font-awesome/fonts';
+@import 'font-awesome/scss/font-awesome';
+
+// Style theme from AdminLTE.
+@import './AdminLTE.scss';
+
+@import '../bower_components/angular/angular-csp.css';
+
+@import '../bower_components/angular-loading-bar/build/loading-bar.css';
+
+@import '../bower_components/trNgGrid/release/trNgGrid.min.css';
+
+// Our Application specific stylesheet.
+@import 'application';

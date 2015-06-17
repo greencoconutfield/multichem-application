@@ -1,0 +1,4 @@
+address_id;address_type;street_number;street_name;building_name;additional_details;city;state;country;postcode;contact_id		
+9;'Primary';NULL;NULL;NULL;'';NULL;NULL;NULL;NULL;NULL
+65537;'Primary';NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+32768;'Primary';NULL;NULL;NULL;'43 hazel park terrace';NULL;'singapore';'singapore';'678876';NULL

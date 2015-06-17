@@ -1,0 +1,15 @@
+login;name
+system;ROLE_ADMIN
+system;ROLE_USER
+admin;ROLE_ADMIN
+admin;ROLE_USER
+xuan;ROLE_ADMIN
+xuan;ROLE_USER
+huong;ROLE_ADMIN
+huong;ROLE_USER
+thao;ROLE_ADMIN
+thao;ROLE_USER
+user;ROLE_USER
+dung;ROLE_USER
+trang;ROLE_USER
+chuyen;ROLE_USER

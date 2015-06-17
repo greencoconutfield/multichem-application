@@ -1,0 +1,11 @@
+sub_industry_sector_id;industry_sector_id;name;description
+3;2;****;Lubricants
+4;2;cleaners;Lubricants / cleaners
+5;2;Additives;Lubricants / Additives
+32770;32770;****;Plastic
+32771;32770;additive;Plastic / additive
+32772;32770;pigment;Plastic / pigment
+32773;32770;resin;Plastic / resin
+32774;32770;masterbatch;Plastic / masterbatch
+32775;32770;compound;Plastic / compound
+32776;2;finished;Lubricants / finished

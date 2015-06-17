@@ -1,0 +1,227 @@
+
+<!--&lt;!&ndash;<div class="modal-footer col-md-8">&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="glyphicon glyphicon-ban-circle"></span> Cancel&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addSupplierBuyingPriceDetail()">&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="glyphicon glyphicon-save"></span> Add&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</div>-->
+<!--</form>-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="form-group col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-12">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="modal-header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<h4 class="modal-title" id="myProductBenefitLevelLabel">Benefit Levels</h4>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-3">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<label>Level</label>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<input type="text" class="form-control" name="test"  ng-minlength="1" ng-maxlength="50" readonly>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-3" >&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<label>Discount Rate</label>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<input type="text" class="form-control" name="test"  ng-minlength="1" ng-maxlength="50">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-3" >&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<label>Quantity</label>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<input type="text" class="form-control" name="test"  ng-minlength="1" ng-maxlength="50">&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-3" >&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="modal-footer">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span class="glyphicon glyphicon-ban-circle"></span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addSupplierBuyingPriceDetail()">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span class="glyphicon glyphicon-save"></span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="table-responsive">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<table class="table table-striped">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<thead>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<th style="width:40%">Level</th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<th style="width:30%">Discount</th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<th style="width:30%">Quantity</th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</thead>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<tbody>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<tr ng-repeat="benefitLevel in benefitLevels">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>{{benefitLevel.name}}</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>{{benefitLevel.discount}}</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>{{benefitLevel.quantity}}</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button type="button"  class="btn">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span class="glyphicon glyphicon-pencil"></span> Edit&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</tbody>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</table>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-12">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="modal-header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<h4 class="modal-title" id="mySupplierListLabel">Supplier Buying Price List</h4>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-6">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<label>Supplier</label>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<select class="form-control" ng-model="selectedSupplierBuyingPriceDetail.supplier.id" ng-options="supplier.id as supplier.supplierName for supplier in suppliers"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;ng-click ="refreshSupplierDetail(selectedSupplierBuyingPriceDetail.supplier.id)" ></select>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-3" >&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<label>Buying Price</label>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<input type="text" class="form-control" name="test" ng-model="selectedSupplierBuyingPriceDetail.unitPrice" ng-minlength="1" ng-maxlength="50">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="form-group col-md-3" >&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<label>Currency</label>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<select class="form-control" ng-model="selectedSupplierBuyingPriceDetail.currency.id" >&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<option value="USD" selected="selected">USD</option>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<option value="VND">VND</option>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<option value="EUR">EUR</option>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</select>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="modal-footer col-md-8">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span class="glyphicon glyphicon-ban-circle"></span> Cancel&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addSupplierBuyingPriceDetail()">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span class="glyphicon glyphicon-save"></span> Add&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="table-responsive col-md-12" style="overflow-y:scroll; height:240px">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<table class="table table-striped">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<thead>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<th>Supplier Name</th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<th>Buying Price</th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<th>Last Updated</th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<th></th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</thead>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<tbody>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<tr ng-repeat="supplierBuyingPriceDetail in product.supplierBuyingPriceDetails">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>{{supplierBuyingPriceDetail.supplier.supplierName}}</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>{{supplierBuyingPriceDetail.unitPrice}}</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>{{supplierBuyingPriceDetail.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button type="button" ng-click="updateSupplierBuyingPriceDetail(supplierBuyingPriceDetail.id)" class="btn">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span class="glyphicon glyphicon-pencil"></span> Edit&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button type="button" ng-click="deleteSupplierBuyingPriceDetail(supplierBuyingPriceDetail.id)" class="btn btn-danger">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span class="glyphicon glyphicon-remove-circle"></span> Del&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</tbody>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</table>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="form-group col-md-3">&ndash;&gt;-->
+<!--&lt;!&ndash;<label>Supplier</label>&ndash;&gt;-->
+<!--&lt;!&ndash;<select class="form-control" ng-model="selectedSupplierBuyingPriceDetail.supplier.id" ng-options="supplier.id as supplier.supplierName for supplier in suppliers"&ndash;&gt;-->
+<!--&lt;!&ndash;ng-click ="refreshSupplierDetail(selectedSupplierBuyingPriceDetail.supplier.id)" ></select>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="form-group col-md-3" >&ndash;&gt;-->
+<!--&lt;!&ndash;<label>Buying Price</label>&ndash;&gt;-->
+<!--&lt;!&ndash;<input type="text" class="form-control" name="test" ng-model="selectedSupplierBuyingPriceDetail.unitPrice" ng-minlength="1" ng-maxlength="50">&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="form-group col-md-3" >&ndash;&gt;-->
+<!--&lt;!&ndash;<label>Currency</label>&ndash;&gt;-->
+<!--&lt;!&ndash;<select class="form-control" ng-model="selectedSupplierBuyingPriceDetail.currency.id" >&ndash;&gt;-->
+<!--&lt;!&ndash;<option value="USD" selected="selected">USD</option>&ndash;&gt;-->
+<!--&lt;!&ndash;<option value="VND">VND</option>&ndash;&gt;-->
+<!--&lt;!&ndash;<option value="EUR">EUR</option>&ndash;&gt;-->
+<!--&lt;!&ndash;</select>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="form-group col-md-3" >&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="modal-footer">&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="glyphicon glyphicon-ban-circle"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addSupplierBuyingPriceDetail()">&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="glyphicon glyphicon-save"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="table-responsive">&ndash;&gt;-->
+<!--&lt;!&ndash;<table class="table table-striped">&ndash;&gt;-->
+<!--&lt;!&ndash;<thead>&ndash;&gt;-->
+<!--&lt;!&ndash;<tr>&ndash;&gt;-->
+<!--&lt;!&ndash;<th style="width:30%">Supplier</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th style="width:20%">Buying Price</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th style="width:25%">Last Update</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th style="width:25%"></th>&ndash;&gt;-->
+<!--&lt;!&ndash;</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;</thead>&ndash;&gt;-->
+<!--&lt;!&ndash;<tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;<tr ng-repeat="supplierBuyingPriceDetail in product.supplierBuyingPriceDetails">&ndash;&gt;-->
+<!--&lt;!&ndash;<td>{{supplierBuyingPriceDetail.supplier.supplierName}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;<td>{{supplierBuyingPriceDetail.unitPrice}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;<td>{{supplierBuyingPriceDetail.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;<td>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" ng-click="updateSupplierBuyingPriceDetail(supplierBuyingPriceDetail.id)" class="btn">&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="glyphicon glyphicon-pencil"></span> Edit&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" ng-click="deleteSupplierBuyingPriceDetail(supplierBuyingPriceDetail.id)" class="btn btn-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="glyphicon glyphicon-remove-circle"></span> Del&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</td>&ndash;&gt;-->
+<!--&lt;!&ndash;</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;</table>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="table-responsive">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<table class="table table-striped">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<tr style="font-weight: bold">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td style="width:35%">Supplier Name</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td style="width:20%">Buying Price</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td style="width:35%">Last Update</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td style="width:20%"></td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<tr ng-repeat="supplierBuyingPriceDetail in product.supplierBuyingPriceDetails">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;{{supplierBuyingPriceDetail.supplier.supplierName}}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div ng-show ="showProductEdit">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<select class="form-control" ng-model="selectedSupplierBuyingPriceDetail.supplier.id"  ng-options="supplier.id as supplier.supplierName for supplier in suppliers"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;ng-click ="refreshSupplierDetail(selectedSupplierBuyingPriceDetail.supplier.id)" ></select>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; editable status (select-local) &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span editable-text="supplierBuyingPriceDetail.unitPrice" e-name="unitPrice" e-form="rowform" e-required>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;{{ supplierBuyingPriceDetail.unitPrice || 'empty' }}&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;</span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; editable group (select-remote) &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span editable-text="supplierBuyingPriceDetail.lastUpdate" e-name="lastUpdate"  e-form="rowform" e-required>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;{{ (supplierBuyingPriceDetail.lastUpdate | date:'yyyy-MM-dd HH:mm:ss') || 'empty'}}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<td style="white-space: nowrap">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; form &ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;</td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</table>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button class="btn btn-default" ng-click="showSupplierEditMode()">Add row</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->

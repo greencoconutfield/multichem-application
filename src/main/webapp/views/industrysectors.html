@@ -1,0 +1,179 @@
+<div>
+    <div class="form-group col-md-12">
+        <button class="btn btn-primary btn-sm" ng-click="addNew()">
+            <span class="glyphicon glyphicon-flash"></span> Create a new Industry Sector
+        </button>
+    </div>
+    <div id="saveIndustrySectorModal" ng-show="showIndustrySectorEdit" aria-labelledby="myIndustrySectorLabel" aria-hidden="true">
+        <div class="row">
+            <form name="sectorForm" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+              ng-submit="create()">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        ng-click="clear()">&times;</button>
+                <h4 class="modal-title" id="myIndustrySectorLabel">Create or edit a IndustrySector</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Industry Sector Id</label>
+                    <input type="text" class="form-control" name="id"
+                           ng-model="industrysector.id" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Industry Sector</label>
+                    <input type="text" class="form-control" name="test"
+                           ng-model="industrysector.name" ng-minlength=1 ng-maxlength=50 required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                </button>
+                <button type="button" ng-disabled="sectorForm.$invalid" class="btn btn-primary" ng-click="create()">
+                    <span class="glyphicon glyphicon-save"></span> Save
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+    <div class="modal fade" id="saveSubIndustrySectorModal" tabindex="-1" role="dialog" aria-labelledby="mySubIndustrySectorLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="form" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="createSubSector()">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="mySubIndustrySectorLabel">Create Sub Sector</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Sub Sector Id</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="currentSubSector.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sub Sector</label>
+                            <input type="text" class="form-control" name="test"
+                                   ng-model="currentSubSector.name" ng-minlength=1 ng-maxlength=50 required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                            </button>
+                            <button type="button" ng-disabled="form.$invalid" class="btn btn-primary" ng-click="createSubSector(industrysector.id)">
+                                <span class="glyphicon glyphicon-save"></span> Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--<div class="table-responsive">-->
+        <!--<table tr-ng-grid="" items="industrysectors" class="table table-striped">-->
+            <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th field-name="id" enable-filtering="false"></th>-->
+                    <!--<th field-name="name" enable-filtering="false"></th>-->
+                    <!--<th field-name="parent.name" enable-filtering="false"></th>-->
+                    <!--<th field-name="description" enable-filtering="false"></th>-->
+                    <!--<th cell-width="15em" enable-filtering="false">-->
+                        <!--<div class="tr-ng-title"></div>-->
+                    <!--</th>-->
+                <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<!--<div class="form-group col-md-6">-->
+                            <!--<button type="submit"-->
+                                    <!--ng-click="update(industrysector.id)"-->
+                                    <!--class="btn">-->
+                                <!--<span class="glyphicon glyphicon-pencil"></span> Edit-->
+                            <!--</button>-->
+                        <!--&nbsp;-->
+                        <!--<!--</div>-->
+                        <!--<!--<div class="form-group col-md-6">-->
+                                    <!--ng-click="delete(industrysector.id)"-->
+                                    <!--class="btn btn-danger">-->
+                                <!--<span class="glyphicon glyphicon-remove-circle"></span> Delete-->
+                            <!--</button>-->
+                        <!--<!--</div>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+
+    <br/>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Industry Sector Id</th>
+                    <th>Industry Sector</th>
+                    <th>Sub Sectors</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="industrysector in industrysectors">
+                    <td width="15%">{{industrysector.id}}</td>
+                    <td width="25%">{{industrysector.name}}</td>
+                    <td width="30%">
+                        <div class="table-responsive">
+                            <table class>
+                                <tbody>
+                                <tr ng-repeat="subIndustrySector in subIndustrySectors | filter:industrysector.name | filter:industrysector.id ">
+                                    <td width="50%">{{subIndustrySector.name}}</td>
+                                    <td width="50%">
+                                        <button type="button"
+                                                ng-click="updateSubSector(subIndustrySector.id)"
+                                                class="btn">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                        <button type="button"
+                                                ng-click="deleteSubSector(subIndustrySector.id)"
+                                                class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tbody>
+                            </table>
+                        </div>
+
+                    </td>
+                    <td width="30%">
+                        <button type="button"
+                                ng-click="addSubSector(industrysector)"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-flash"></span> Add Sub Sector
+                        </button>
+                        <button type="submit"
+                                ng-click="update(industrysector.id)"
+                                class="btn">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(industrysector.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        </button>
+
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination total-items="totalItems()" ng-model="currentPage" items-per-page="1" ng-change="" ></pagination>
+    </div>
+</div>

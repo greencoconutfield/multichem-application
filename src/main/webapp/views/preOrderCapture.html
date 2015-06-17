@@ -1,0 +1,100 @@
+<div>
+    <div id="savePreOrderModal" aria-labelledby="myPreOrderLabel"
+         aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+
+                <div class="modal-header" style="overflow: auto;">
+                    <h4 class="modal-title" id="myEmployeeLabel">Create or edit a Visit Report</h4>
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="form-group col-sm-7">
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <label>Customer</label>
+                                <div class="input-group">
+                                    <input type="text"
+                                           ng-model="selectedCustomer" ng-disabled="preOrder.customer"
+                                           typeahead="customer as customer.customerName for customer in customers | filter:$viewValue | limitTo:10"
+                                           class="form-control">
+                                    <span class="input-group-addon pointerCursor">
+                                        <i class="glyphicon glyphicon-arrow-right" ng-click="addCustomer()"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-7" >
+                                <label class="text-muted">
+                                    <small ng-show="!preOrder.customer">Please select a customer</small>
+                                    <small ng-show="preOrder.customer">Selected customer <i class="glyphicon glyphicon-remove-sign pointerCursor" ng-click="preOrder.customer = undefined"></i></small>
+                                </label>
+                                <div class="input-group">
+                                    <span><p class="text-success">{{preOrder.customer.customerName}}</p></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <label>Sales Person</label>
+                                <div class="input-group">
+                                    <input type="text"
+                                           ng-model="selectedEmployee" ng-disabled="preOrder.salesPerson"
+                                           typeahead="employee as employee.employeeName for employee in employees | filter:$viewValue | limitTo:10"
+                                           class="form-control">
+                                    <span class="input-group-addon pointerCursor" ng-click="addEmployee()">
+                                        <i class="glyphicon glyphicon-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-7">
+                                <label class="text-muted">
+                                    <small ng-show="!preOrder.salesPerson">Please select a sales person</small>
+                                    <small ng-show="preOrder.salesPerson">Selected sales person  <i class="glyphicon glyphicon-remove-sign pointerCursor" ng-click="preOrder.salesPerson = undefined"></i></small>
+                                </label>
+                                <div class="input-group">
+                                    <span><p class="text-success">{{preOrder.salesPerson.employeeName}}</p></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Description</label>
+                            <textarea class="form-control" name="description"
+                                      ng-model="preOrder.description" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select  class="form-control" ng-model="preOrder.status"
+                                     ng-options="status.status as status.status for status in statusList"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Entry Location</label>
+                            <input type="text" class="form-control" name="entryLocation"
+                                   ng-model="preOrder.entryLocation">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="date" class="form-control" name="expiryDate"
+                                   ng-model="preOrder.expiryDate">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-11">
+
+                    </div>
+                </div>
+                <div class="modal-footer" style="overflow: auto;">
+                    <button type="button" class="btn-sm btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

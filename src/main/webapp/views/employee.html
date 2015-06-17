@@ -1,0 +1,100 @@
+<div>
+    <button class="btn btn-primary btn-sm" ng-click="addNew()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Employee
+    </button>
+    <div id="saveEmployeeModal" ng-show="showEmployeeEdit" aria-labelledby="mEmployeeLabel" aria-hidden="true">
+        <div class="row">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="create()">
+
+                <div class="modal-header" style="overflow: auto;">
+                    <h4 class="modal-title" id="myEmployeeLabel">Create or edit a Employee</h4>
+                </div>
+
+                <div class="modal-body" style="overflow: auto;">
+                        <!--<div class="form-group col-md-4">-->
+                            <!--<label>Title</label>-->
+                            <!--<select class="form-control" ng-model="supplier.contactDetail.contactPerson.title">-->
+                                <!--<option value="Mr" selected="selected">Mr</option>-->
+                                <!--<option value="Mrs">Mrs</option>-->
+                                <!--<option value="Miss">Miss</option>-->
+                                <!--<option value="Madam">Madam</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                        <div class="form-group col-md-3">
+                            <label>Id</label>
+                            <input type="text" class="form-control" name="id" ng-model="employee.id" readonly >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" name="id" ng-model="employee.fullName" >
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Mobile</label>
+                            <input type="text" class="form-control" name="id" ng-model="employee.phone" >
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Status</label>
+                            <input type="text" class="form-control" name="id" ng-model="employee.status" >
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="id" ng-model="employee.email" >
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Join date</label>
+                            <input type="date" class="form-control" name="id" ng-model="employee.joinDate" >
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Leave date</label>
+                            <input type="date" class="form-control" name="id" ng-model="employee.leaveDate" >
+                        </div>
+
+                    <!--<contact-widget contact="supplier.contact" />-->
+
+                </div>
+                <div class="modal-footer" style="overflow: auto;">
+                    <button type="button" class="btn-sm btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Employee Name</th>
+                    <th>Contact Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employee in employees">
+                    <td>{{employee.id}}</td>
+                    <td>{{employee.fullName}}</td>
+                    <td>{{employee.status}}</td>
+                    <td>
+                        <button type="submit"
+                                ng-click="update(employee.id)"
+                                class="btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(employee.id)"
+                                class="btn-sm btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

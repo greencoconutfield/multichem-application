@@ -1,0 +1,90 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="left-side sidebar-offcanvas" ng-switch-when="true" >
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="images/avatars/avatar5.png" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+                <p data-toggle='tooltip' title="Logged in User">Hello, Admin</p>
+            </div>
+        </div>
+
+        <!-- search form -->
+        <form action="" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                                <span class="input-group-btn">
+                                    <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="active">
+                <a href="index.html">
+                    <i class="fa fa-dashboard"></i> <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="pages/widgets.html">
+                    <i class="fa fa-th"></i> <span>Shipment</span> <small class="badge pull-right bg-green">4 new</small>
+                </a>
+            </li>
+            <li class="nav-header">
+                <a href="" data-toggle="collapse" data-target="#reportMenu">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <span>Visit report</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="sidebar-menu collapse out" id="reportMenu">
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Visit Report</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Market survey</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="" data-toggle="collapse" data-target="#quotationMenu">
+                    <i class="fa fa-laptop"></i>
+                    <span>Quotation</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="sidebar-menu collapse out" id="quotationMenu">
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Quotation <small class="badge pull-right bg-green">2 new</small></a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Request for quotation</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="">
+                    <i class="fa fa-edit"></i> <span>Inventory</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="" data-toggle="collapse" data-target="#hrMenu">
+                    <i class="fa fa-table"></i> <span>HR</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="sidebar-menu collapse out" id="hrMenu">
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Canditate</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Ranking</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Leave tracking</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="" data-toggle="collapse" data-target="#configMenu">
+                    <i class="fa fa-folder"></i> <span>Configuration</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="sidebar-menu collapse out" id="configMenu">
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> User</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Product</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i> Customer</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

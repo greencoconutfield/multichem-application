@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="100" author="kamesh" runAlways="false">
+
+        <createTable tableName="CONTACT">
+            <column name="contact_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="middle_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="email" type="varchar(100)"/>
+            <column name="mobile" type="varchar(20)"/>
+            <column name="home_phone" type="varchar(20)"/>
+            <column name="fax" type="varchar(20)"/>
+            <column name="phone_other" type="varchar(20)"/>
+        </createTable>
+
+        <createTable tableName="CONTACT_PERSON">
+            <column name="contact_person_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(20)"/>
+            <column name="full_name" type="varchar(100)"/>
+            <column name="email" type="varchar(100)"/>
+            <column name="mobile" type="varchar(20)"/>
+            <column name="home_phone" type="varchar(20)"/>
+        </createTable>
+
+        <createTable tableName="ADDRESS">
+            <column name="address_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="address_type" type="varchar(20)"/>
+            <column name="street_number" type="varchar(10)"/>
+            <column name="street_name" type="varchar(50)"/>
+            <column name="building_name" type="varchar(50)"/>
+            <column name="additional_details" type="varchar(50)"/>
+            <column name="city" type="varchar(50)"/>
+            <column name="state" type="varchar(50)"/>
+            <column name="country" type="varchar(50)"/>
+            <column name="postcode" type="varchar(20)"/>
+            <column name="contact_id" type="bigint" />
+        </createTable>
+
+        <createTable tableName="CONTACT_DETAIL">
+            <column name="contact_detail_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="varchar(100)"/>
+            <column name="mobile" type="varchar(20)"/>
+            <column name="home_phone" type="varchar(20)"/>
+            <column name="fax" type="varchar(20)"/>
+            <column name="phone_other" type="varchar(20)"/>
+            <column name="contact_person_id" type="bigint"/>
+            <column name="address_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="contact_person_id"
+                                 baseTableName="CONTACT_DETAIL"
+                                 constraintName="FK_Contact_Detail_Contact_Person_contactPersonId"
+                                 referencedColumnNames="contact_person_id"
+                                 referencedTableName="CONTACT_PERSON"/>
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="CONTACT_DETAIL"
+                                 constraintName="FK_Contact_Detail_Address_addressId"
+                                 referencedColumnNames="address_id"
+                                 referencedTableName="ADDRESS"/>
+
+        <createTable tableName="EMPLOYEE">
+            <column name="employee_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="employee_status" type="varchar(20)"/>
+            <column name="employee_login" type="varchar(50)"/>
+            <column name="designation" type="varchar(50)"/>
+            <column name="employment_start_date" type="timestamp" />
+            <column name="employment_end_date" type="timestamp"/>
+            <column name="contact_id" type="bigint" />
+            <column name="created_by" type="varchar(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp" />
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="contact_id"
+                                 baseTableName="EMPLOYEE"
+                                 constraintName="FK_Employee_Contact"
+                                 referencedColumnNames="contact_id"
+                                 referencedTableName="CONTACT"/>
+
+        <addForeignKeyConstraint baseColumnNames="employee_login"
+                                 baseTableName="EMPLOYEE"
+                                 constraintName="FK_Employee_Login"
+                                 referencedColumnNames="login"
+                                 referencedTableName="T_USER"/>
+
+        <createTable tableName="CANDIDATE">
+            <column name="candidate_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="contact_id" type="bigint"/>
+            <column name="employee_id" type="bigint"/>
+            <column name="applied_role" type="varchar(50)"/>
+            <column name="description" type="text"/>
+            <column name="ranking" type="varchar(5)"/>
+            <column name="application_date" type="timestamp"/>
+            <column name="created_by" type="varchar(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="contact_id"
+                                 baseTableName="CANDIDATE"
+                                 constraintName="FK_Candidate_Contact"
+                                 referencedColumnNames="contact_id"
+                                 referencedTableName="CONTACT"/>
+
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="CANDIDATE"
+                                 constraintName="FK_Candidate_Employee"
+                                 referencedColumnNames="employee_id"
+                                 referencedTableName="EMPLOYEE"/>
+
+        <createTable tableName="INDUSTRY_SECTOR">
+            <column name="industry_sector_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="text"/>
+        </createTable>
+
+        <createTable tableName="SUB_INDUSTRY_SECTOR">
+            <column name="sub_industry_sector_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="industry_sector_id" type="bigint"/>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="text"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="industry_sector_id"
+                                 baseTableName="SUB_INDUSTRY_SECTOR"
+                                 constraintName="FK_Industry_Sector_Sub_INdustry_Sector_parentId"
+                                 referencedColumnNames="industry_sector_id"
+                                 referencedTableName="INDUSTRY_SECTOR"/>
+
+        <createTable tableName="BENEFIT_LEVEL">
+            <column name="benefit_level_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="rate" type="double"/>
+            <column name="description" type="text"/>
+        </createTable>
+
+        <createTable tableName="PRICING_TYPE">
+            <column name="pricing_type_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="rate" type="double"/>
+            <column name="description" type="text"/>
+        </createTable>
+
+        <createTable tableName="UNIT">
+            <column name="unit_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="text"/>
+        </createTable>
+
+        <createTable tableName="PACKAGE_TYPE">
+            <column name="package_type_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="text"/>
+        </createTable>
+
+        <createTable tableName="CURRENCY">
+            <column name="currency_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="text"/>
+        </createTable>
+
+        <createTable tableName="TAX_DETAIL">
+            <column name="tax_detail_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="insurance" type="double"/>
+            <column name="supplier_inland_cost" type="double"/>
+            <column name="freight_cost" type="double"/>
+            <column name="local_clearance" type="double"/>
+            <column name="import_tax" type="double"/>
+            <column name="admin_charge" type="double"/>
+            <column name="tt_fee" type="double"/>
+        </createTable>
+
+        <createTable tableName="CUSTOMER">
+            <column name="customer_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_name" type="varchar(50)"/>
+            <column name="description" type="text"/>
+            <column name="contact_detail_id" type="bigint"/>
+            <column name="industry_sector_id" type="bigint"/>
+            <column name="created_by" type="varchar(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="contact_detail_id"
+                                 baseTableName="CUSTOMER"
+                                 constraintName="FK_Customer_Contact_Detail"
+                                 referencedColumnNames="contact_detail_id"
+                                 referencedTableName="CONTACT_DETAIL"/>
+
+        <addForeignKeyConstraint baseColumnNames="industry_sector_id"
+                                 baseTableName="CUSTOMER"
+                                 constraintName="FK_Customer_Industry_Sector"
+                                 referencedColumnNames="industry_sector_id"
+                                 referencedTableName="INDUSTRY_SECTOR"/>
+
+        <createTable tableName="SUPPLIER">
+            <column name="supplier_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="contact_detail_id" type="bigint"/>
+            <column name="supplier_name" type="varchar(50)"/>
+            <column name="description" type="text"/>
+            <column name="created_by" type="varchar(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="contact_detail_id"
+                                 baseTableName="SUPPLIER"
+                                 constraintName="FK_Supplier_Contact_Detail_contactDetailId"
+                                 referencedColumnNames="contact_detail_id"
+                                 referencedTableName="CONTACT_DETAIL"/>
+
+        <createTable tableName="PRICE">
+            <column name="price_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pricing_type_id" type="bigint"/>
+            <column name="currency_id" type="bigint"/>
+            <column name="value" type="double"/>
+            <column name="expired_date" type="date"/>
+            <column name="last_update_date" type="timestamp" defaultValueDate="${now}"/>
+            <column name="is_current_used" type="boolean"/>
+        </createTable>
+
+
+        <addForeignKeyConstraint baseColumnNames="pricing_type_id"
+                                 baseTableName="PRICE"
+                                 constraintName="FK_Price_Pricing_type"
+                                 referencedColumnNames="pricing_type_id"
+                                 referencedTableName="PRICING_TYPE"/>
+
+        <addForeignKeyConstraint baseColumnNames="currency_id"
+                                 baseTableName="PRICE"
+                                 constraintName="FK__Price_Currency_currencyId"
+                                 referencedColumnNames="currency_id"
+                                 referencedTableName="CURRENCY"/>
+
+        <createTable tableName="PRODUCT">
+            <column name="product_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_name" type="varchar(50)"/>
+            <column name="product_type" type="varchar(50)"/>
+            <column name="description" type="text"/>
+            <column name="unit_id" type="bigint"/>
+            <column name="package_type_id" type="bigint"/>
+            <column name="package_size" type ="double"/>
+            <column name="price_id" type="bigint"/>
+            <column name="minimum_order" type="bigint"/>
+            <column name="sub_industry_sector_id" type="bigint"/>
+            <column name="lead_time" type="bigint"></column>
+            <column name="supplier_id" type="bigint"/>
+            <column name="tax_detail_id" type="bigint"/>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="sub_industry_sector_id"
+                                 baseTableName="PRODUCT"
+                                 constraintName="FK_Product_Sub_Industry_Sector"
+                                 referencedColumnNames="sub_industry_sector_id"
+                                 referencedTableName="SUB_INDUSTRY_SECTOR"/>
+        <addForeignKeyConstraint baseColumnNames="unit_id"
+                                 baseTableName="PRODUCT"
+                                 constraintName="FK_Product_Unit"
+                                 referencedColumnNames="unit_id"
+                                 referencedTableName="UNIT"/>
+        <addForeignKeyConstraint baseColumnNames="package_type_id"
+                                 baseTableName="PRODUCT"
+                                 constraintName="FK_Product_Package_Type"
+                                 referencedColumnNames="package_type_id"
+                                 referencedTableName="PACKAGE_TYPE"/>
+        <addForeignKeyConstraint baseColumnNames="price_id"
+                                 baseTableName="PRODUCT"
+                                 constraintName="FK_Product_Price_priceId"
+                                 referencedColumnNames="price_id"
+                                 referencedTableName="PRICE"/>
+        <addForeignKeyConstraint baseColumnNames="tax_detail_id"
+                                 baseTableName="PRODUCT"
+                                 constraintName="FK_Product_Tax_Detail_TaxDetailId"
+                                 referencedColumnNames="tax_detail_id"
+                                 referencedTableName="TAX_DETAIL"/>
+
+
+
+
+        <!--<createTable tableName="PRODUCT_BUYING_PRICE">-->
+            <!--<column name="product_id" type="bigint">-->
+                <!--<constraints nullable="false"/>-->
+            <!--</column>-->
+            <!--<column name="supplier_buying_price_id" type="bigint">-->
+                <!--<constraints nullable="false"/>-->
+            <!--</column>-->
+        <!--</createTable>-->
+        <!--<addPrimaryKey columnNames="product_id, supplier_buying_price_id" tableName="PRODUCT_BUYING_PRICE"/>-->
+
+
+        <!--<createTable tableName="SUPPLIER_BUYING_PRICE_DETAIL">-->
+            <!--<column name="supplier_buying_price_id" type="bigint">-->
+                <!--<constraints primaryKey="true" nullable="false"/>-->
+            <!--</column>-->
+            <!--<column name="supplier_id" type="bigint"/>-->
+            <!--<column name="unit_price" type="double"/>-->
+            <!--<column name="pricing_type_id" type="bigint"/>-->
+            <!--<column name="currency_id" type="bigint"/>-->
+            <!--<column name="expired_date" type="date"/>-->
+            <!--<column name="last_update_date" type="timestamp" defaultValueDate="${now}"/>-->
+        <!--</createTable>-->
+
+
+
+        <!--<addForeignKeyConstraint baseColumnNames="supplier_buying_price_id"-->
+                                 <!--baseTableName="PRODUCT_BUYING_PRICE"-->
+                                 <!--constraintName="FK_Product_Buying_Price_buyingPriceId"-->
+                                 <!--referencedColumnNames="supplier_buying_price_id"-->
+                                 <!--referencedTableName="SUPPLIER_BUYING_PRICE_DETAIL"/>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="product_id"-->
+                                 <!--baseTableName="PRODUCT_BUYING_PRICE"-->
+                                 <!--constraintName="FK_Product_Buying_Price_productId"-->
+                                 <!--referencedColumnNames="product_id"-->
+                                 <!--referencedTableName="PRODUCT"/>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="supplier_id"-->
+                                 <!--baseTableName="SUPPLIER_BUYING_PRICE_DETAIL"-->
+                                 <!--constraintName="FK_Product_Buying_Price_Supplier_supplierId"-->
+                                 <!--referencedColumnNames="supplier_id"-->
+                                 <!--referencedTableName="SUPPLIER"/>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="pricing_type_id"-->
+                                 <!--baseTableName="SUPPLIER_BUYING_PRICE_DETAIL"-->
+                                 <!--constraintName="FK_Product_Buying_Price_Pricing_Type_pricingTypeId"-->
+                                 <!--referencedColumnNames="pricing_type_id"-->
+                                 <!--referencedTableName="PRICING_TYPE"/>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="currency_id"-->
+                                 <!--baseTableName="SUPPLIER_BUYING_PRICE_DETAIL"-->
+                                 <!--constraintName="FK_Product_Buying_Price_Currency_currencyId"-->
+                                 <!--referencedColumnNames="currency_id"-->
+                                 <!--referencedTableName="CURRENCY"/>-->
+
+        <createTable tableName="QUOTATION">
+            <column name="quotation_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="quotation_name" type="varchar(50)"/>
+            <column name="quotation_type" type="varchar(50)"/>
+            <column name="description" type="text"/>
+            <column name="customer_id" type="bigint"/>
+            <column name="unit" type="int"/>
+            <column name="unit_type" type="varchar(20)"/>
+            <column name="unit_price" type="double"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="QUOTATION"
+                                 constraintName="FK_Quotation_Customer"
+                                 referencedColumnNames="customer_id"
+                                 referencedTableName="CUSTOMER"/>
+
+        <createTable tableName="QUOTATION_ITEM">
+            <column name="quotation_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quotation_item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="quotation_id, quotation_item_id" tableName="QUOTATION_ITEM"/>
+
+        <createTable tableName="QUOTATION_ITEM_DETAIL">
+            <column name="quotation_item_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint"/>
+            <column name="pricing_type_id" type="bigint"/>
+            <column name="package_quantity" type="double"/>
+            <column name="unit_price" type="double"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="quotation_item_id"
+                                 baseTableName="QUOTATION_ITEM"
+                                 constraintName="FK_Quotation_Item_QuotationItemId"
+                                 referencedColumnNames="quotation_item_id"
+                                 referencedTableName="QUOTATION_ITEM_DETAIL"/>
+
+        <addForeignKeyConstraint baseColumnNames="quotation_id"
+                                 baseTableName="QUOTATION_ITEM"
+                                 constraintName="FK_Quotation_Item_QuotationId"
+                                 referencedColumnNames="quotation_id"
+                                 referencedTableName="QUOTATION"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="QUOTATION_ITEM_DETAIL"
+                                 constraintName="FK_Quotation_Item_ProductId"
+                                 referencedColumnNames="product_id"
+                                 referencedTableName="PRODUCT"/>
+        <addForeignKeyConstraint baseColumnNames="pricing_type_id"
+                                 baseTableName="QUOTATION_ITEM_DETAIL"
+                                 constraintName="FK_Quotation_Item_Pricing_type"
+                                 referencedColumnNames="pricing_type_id"
+                                 referencedTableName="PRICING_TYPE"/>
+
+        <createTable tableName="SHIPMENT">
+            <column name="shipment_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_by_user" type="varchar(50)"/>
+            <column name="supplier_id" type="bigint"/>
+            <column name="description" type="text"/>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dispatched_date" type="timestamp"/>
+            <column name="dispatched_from" type="varchar(50)"/>
+            <column name="arrival_date" type="timestamp"/>
+            <column name="arrival_location" type="varchar(100)"/>
+            <column name="status" type="varchar(20)"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_user"
+                                 baseTableName="SHIPMENT"
+                                 constraintName="FK_Shipment_Creator_Login"
+                                 referencedColumnNames="login"
+                                 referencedTableName="T_USER"/>
+
+        <addForeignKeyConstraint baseColumnNames="supplier_id"
+                                 baseTableName="SHIPMENT"
+                                 constraintName="FK_Shipment_supplier"
+                                 referencedColumnNames="supplier_id"
+                                 referencedTableName="SUPPLIER"/>
+
+        <createTable tableName="SHIPMENT_CUSTOMER">
+            <column name="shipment_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="shipment_id, customer_id" tableName="SHIPMENT_CUSTOMER"/>
+
+        <addForeignKeyConstraint baseColumnNames="shipment_id"
+                                 baseTableName="SHIPMENT_CUSTOMER"
+                                 constraintName="FK_Shipment_Customer_ShipmentId"
+                                 referencedColumnNames="shipment_id"
+                                 referencedTableName="SHIPMENT"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="SHIPMENT_CUSTOMER"
+                                 constraintName="FK_Shipment_Customer_CustomerId"
+                                 referencedColumnNames="customer_id"
+                                 referencedTableName="CUSTOMER"/>
+
+        <createTable tableName="PRE_ORDER">
+            <column name="pre_order_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_id" type="bigint"/>
+            <column name="created_by_user" type="varchar(50)"/>
+            <column name="sales_person" type="bigint"/>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="entry_location" type="text"/>
+            <column name="description" type="text"/>
+            <column name="status" type="varchar(20)" />
+            <column name="expiry_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="PRE_ORDER"
+                                 constraintName="FK_Pre_Order_Customer"
+                                 referencedColumnNames="customer_id"
+                                 referencedTableName="CUSTOMER"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_user"
+                                 baseTableName="PRE_ORDER"
+                                 constraintName="FK_Pre_Order_Creator_Login"
+                                 referencedColumnNames="login"
+                                 referencedTableName="T_USER"/>
+
+        <addForeignKeyConstraint baseColumnNames="sales_person"
+                                 baseTableName="PRE_ORDER"
+                                 constraintName="FK_Pre_Order_Sales_Person"
+                                 referencedColumnNames="employee_id"
+                                 referencedTableName="EMPLOYEE"/>
+
+        <createTable tableName="PRE_ORDER_ACTION">
+            <column name="pre_order_action_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pre_order_id" type="bigint"/>
+            <column name="employee_in_charge" type="bigint"/>
+            <column name="action" type="text"/>
+            <column name="description" type="text"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="created_date" type="timestamp"  defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="pre_order_id"
+                                 baseTableName="PRE_ORDER_ACTION"
+                                 constraintName="FK_Pre_Order_Action_Pre_Order"
+                                 referencedColumnNames="pre_order_id"
+                                 referencedTableName="PRE_ORDER"/>
+
+        <addForeignKeyConstraint baseColumnNames="employee_in_charge"
+                                 baseTableName="PRE_ORDER_ACTION"
+                                 constraintName="FK_Pre_Order_Action_Employee_In_Charge"
+                                 referencedColumnNames="employee_id"
+                                 referencedTableName="EMPLOYEE"/>
+
+        <createTable tableName="PRE_ORDER_PURPOSE">
+            <column name="pre_order_purpose_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pre_order_id" type="bigint"/>
+            <column name="purpose" type="text"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="pre_order_id"
+                                 baseTableName="PRE_ORDER_ACTION"
+                                 constraintName="FK_Pre_Order_Purpose_Pre_Order"
+                                 referencedColumnNames="pre_order_id"
+                                 referencedTableName="PRE_ORDER"/>
+
+        <createTable tableName="PRODUCT_PRE_ORDER">
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pre_order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit" type="varchar(20)"/>
+            <column name="unit_type" type="varchar(20)"/>
+            <column name="unit_price" type="varchar(20)"/>
+            <column name="quantity" type="int"/>
+            <column name="description" type="text"/>
+        </createTable>
+        <addPrimaryKey columnNames="product_id, pre_order_id" tableName="PRODUCT_PRE_ORDER"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="PRODUCT_PRE_ORDER"
+                                 constraintName="FK_Product_Pre_Order_productId"
+                                 referencedColumnNames="product_id"
+                                 referencedTableName="PRODUCT"/>
+
+        <addForeignKeyConstraint baseColumnNames="pre_order_id"
+                                 baseTableName="PRODUCT_PRE_ORDER"
+                                 constraintName="FK_Product_Pre_Order_PreOrderId"
+                                 referencedColumnNames="pre_order_id"
+                                 referencedTableName="PRE_ORDER"/>
+
+        <!--<createTable tableName="">-->
+            <!--<column name="quotation_id" type="bigint">-->
+                <!--<constraints primaryKey="true" nullable="false"/>-->
+            <!--</column>-->
+            <!--<column name="customer_id" type="bigint"/>-->
+            <!--<column name="created_by_user" type="varchar(50)"/>-->
+            <!--<column name="employee_id" type="bigint"/>
+            <!-<column name="created_date" type="timestamp" defaultValueDate="${now}">-->
+                <!--<constraints nullable="false"/>-->
+            <!--</column>-->
+            <!--<column name="start_date" type="timestamp" />-->
+            <!--<column name="expiry_date" type="timestamp"/>-->
+            <!--<column name="description" type="text"/>-->
+            <!--<column name="payment_term" type="varchar(20)"/>-->
+            <!--<column name="includes_tax" type="boolean"/>-->
+            <!--<column name="lead_time" type="varchar(20)"/>-->
+            <!--<column name="minimum_order" type="int"/>-->
+            <!--<column name="status" type="varchar(20)"/>-->
+        <!--</createTable>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="customer_id"-->
+                                 <!--baseTableName="QUOTATION"-->
+                                 <!--constraintName="FK_Quotation_Customer"-->
+                                 <!--referencedColumnNames="customer_id"-->
+                                 <!--referencedTableName="CUSTOMER"/>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="created_by_user"-->
+                                 <!--baseTableName="QUOTATION"-->
+                                 <!--constraintName="FK_Quotation_Creator_Login"-->
+                                 <!--referencedColumnNames="login"-->
+                                 <!--referencedTableName="T_USER"/>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="employee_id"-->
+                                 <!--baseTableName="QUOTATION"-->
+                                 <!--constraintName="FK_Quotation_Employee"-->
+                                 <!--referencedColumnNames="employee_id"-->
+                                 <!--referencedTableName="EMPLOYEE"/>-->
+
+        <!--<createTable tableName="QUOTATION_PRODUCT">-->
+            <!--<column name="quotation_id" type="bigint">-->
+                <!--<constraints nullable="false"/>-->
+            <!--</column>-->
+            <!--<column name="product_id" type="bigint">-->
+                <!--<constraints nullable="false"/>-->
+            <!--</column>-->
+        <!--</createTable>-->
+        <!--<addPrimaryKey columnNames="quotation_id, product_id" tableName="QUOTATION_PRODUCT"/>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="quotation_id"-->
+                                 <!--baseTableName="QUOTATION_PRODUCT"-->
+                                 <!--constraintName="FK_Quotation_Product_QuotationId"-->
+                                 <!--referencedColumnNames="quotation_id"-->
+                                 <!--referencedTableName="QUOTATION"/>-->
+
+        <!--<addForeignKeyConstraint baseColumnNames="product_id"-->
+                                 <!--baseTableName="QUOTATION_PRODUCT"-->
+                                 <!--constraintName="FK_Quotation_Product_ProductId"-->
+                                 <!--referencedColumnNames="product_id"-->
+                                 <!--referencedTableName="PRODUCT"/>-->
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/industry_sector.csv"
+                  separator=";"
+                  tableName="INDUSTRY_SECTOR"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/sub_industry_sector.csv"
+                  separator=";"
+                  tableName="SUB_INDUSTRY_SECTOR"/>
+
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/benefit_level.csv"
+                  separator=";"
+                  tableName="BENEFIT_LEVEL"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/pricing_type.csv"
+                  separator=";"
+                  tableName="PRICING_TYPE"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/unit.csv"
+                  separator=";"
+                  tableName="UNIT"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/package_type.csv"
+                  separator=";"
+                  tableName="PACKAGE_TYPE"/>
+
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/currency.csv"
+                  separator=";"
+                  tableName="CURRENCY"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/address.csv"
+                  separator=";"
+                  tableName="ADDRESS"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/contact_person.csv"
+                  separator=";"
+                  tableName="CONTACT_PERSON"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/contact_detail.csv"
+                  separator=";"
+                  tableName="CONTACT_DETAIL"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/supplier.csv"
+                  separator=";"
+                  tableName="SUPPLIER"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/price.csv"
+                  separator=";"
+                  tableName="PRICE"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/product.csv"
+                  separator=";"
+                  tableName="PRODUCT"/>
+
+
+
+
+
+
+
+
+        <!--<createTable tableName="T_FOO">-->
+        <!--<column nasme="id" type="varchar(255)">-->
+        <!--<constraints primaryKey="true" nullable="false"/>-->
+        <!--</column>-->
+        <!--<column name="sample_text_attribute" type="varchar(50)"/>-->
+        <!--<column name="sample_date_attribute" type="date"/>-->
+        <!--</createTable>-->
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,10 @@
+employee_detail_id; full_name; email; phone; status; join_date; leave_date
+1; Loc Le; dennis@hexachem.com.vn; null; null; 2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
+2; Xuan Nguyen; xuan@hexachem.com.vn; null; null;2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
+3; Huong nguyen; huong@hexachem.com.vn; null; null; 2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
+4; Hang Nguyen; hang@hexachem.com.vn; null; null; 2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
+5; Lanh Le; lanh@hexachem.com.vn; null; null; 2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
+6; Trang; trang@hexachem.com.vn; null; null; 2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
+7; Chuyen; chuyen@hexachem.com.vn; null; null; 2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
+8; Dung; dung@hexachem.com.vn; null; null; 2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
+9; Duy; duy@hexachem.com.vn; null; null; 2014-12-22 03:25:45.481146+00; 2014-12-22 03:25:45.481146+00
